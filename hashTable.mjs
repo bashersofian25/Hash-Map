@@ -26,7 +26,10 @@ export const createHashTable = () => {
     const _calculateLoadFactor = () => {};// think it through
 
 
+    // this below is probably trash review it thoroughly
+    //#############################################################################
     const set = (key, value) => {
+        // still need to see if the table needs to grow, keep it in mind
         let hash = _hash(key);
         if(_arr[hash] == null){
             _arr[hash] = createBucket(key, value);
@@ -38,7 +41,20 @@ export const createHashTable = () => {
             _length++;
         }
     };
-    const get = (key) => {};
+    const get = (key) => {
+        let hash = _hash(key);
+        let bucket = _arr[hash];
+        if(bucket == null) return null;
+        else if(bucket.size() == 1) return bucket.at(0).content;
+        else {
+            let index = bucket.find(key);
+            if(index == null) return null;
+            else return bucket.at(index).content
+
+        };
+    };
+    //#############################################################################
+
     const remove = (key) => {/*will decrease length (_length--)*/};
     const length = () => {return _length};
     const clear = () => {_arr = Array(16).fill(null) /* will reset length (_length = 0;) */};
