@@ -21,12 +21,23 @@ export const createHashTable = () => {
         }
         return hashCode;
     };
-    
+
     const _doubleArraySize = () => {};
     const _calculateLoadFactor = () => {};// think it through
 
 
-    const set = (key, value) => { /*will increase length (_length++)*/};
+    const set = (key, value) => {
+        let hash = _hash(key);
+        if(_arr[hash] == null){
+            _arr[hash] = createBucket(key, value);
+            _length++;
+        }else if(_arr[hash].key == key){
+            _arr[hash].content = value; //overwrite it no modification on length
+        }else {
+            _arr[hash].append(key, value); // adding a node to the bucket in case of collision
+            _length++;
+        }
+    };
     const get = (key) => {};
     const remove = (key) => {/*will decrease length (_length--)*/};
     const length = () => {return _length};

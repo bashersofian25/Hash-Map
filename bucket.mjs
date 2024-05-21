@@ -4,8 +4,8 @@
 // no need prepend function, I'll remove it [Done]
 
 import { createNode} from "./ListNode.mjs";
-export const createBucket = (firstNodeValue) => {
-    let firstNode = createNode(null, firstNodeValue);
+export const createBucket = (firstNodeKey ,firstNodeValue) => {
+    let firstNode = createNode(null, firstNodeKey ,firstNodeValue);
     let _head = Object.assign({}, firstNode);
     let _tail = Object.assign({}, firstNode);
     let _size = 1;
