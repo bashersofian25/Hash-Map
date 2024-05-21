@@ -17,16 +17,20 @@ export const createHashTable = () => {
         const primeNumber = 31;
         for (let i = 0; i < key.length; i++) {
             hashCode = primeNumber * hashCode + key.charCodeAt(i);
-            hashCode %= _arr.length;
+            hashCode %= _arr.length; // to avoid having very large numbers
         }
         return hashCode;
     };
+    
+    const _doubleArraySize = () => {};
+    const _calculateLoadFactor = () => {};// think it through
+
 
     const set = (key, value) => { /*will increase length (_length++)*/};
     const get = (key) => {};
     const remove = (key) => {/*will decrease length (_length--)*/};
     const length = () => {return _length};
-    const clear = () => {_arr = Array(16).fill(null) /*will reset length (_length = 0;)*/};
+    const clear = () => {_arr = Array(16).fill(null) /* will reset length (_length = 0;) */};
     const keys = () => {/* will return an array with all keys in the hash table */};
     const values = () => {/* will return an array with all values in the hash table */};
     const entries = () => {/* will return an array with all [key,value] pairs in the hash table */};
