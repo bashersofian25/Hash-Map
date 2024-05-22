@@ -9,7 +9,7 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
     let _head = Object.assign({}, firstNode);
     let _tail = Object.assign({}, firstNode);
     let _size = 1;
-    const append = (value) => {
+    const append = (key, value) => {
         const newNode = createNode(null, key, value);
         (_size == 1)? _head.next = newNode : _tail.next = newNode;
         _tail = newNode;
@@ -17,10 +17,11 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
     };
     const size = () => {return _size;};
     const toString = () => {// maybe I'll need it's logic I'll keep it in case
+        if (_head == null) return null;
         let pointedAtNode = _head;
         let finalString = ""; 
         while(pointedAtNode != null){
-            finalString += `(${pointedAtNode.content}) --> `;
+            finalString += `[${pointedAtNode.key}, ${pointedAtNode.content}] --> `;
             pointedAtNode = pointedAtNode.next;
         };
         finalString += "null";
@@ -59,10 +60,15 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
 
     const removeAt = (index) => {
         if(index>_size) throw new Error('Index out of range for inserting!');
-        else if(index == _size) {pop(); return;}
-        let prevNode = at(index-1);
-        let nextNode = at(index+1);
-        prevNode.next = nextNode;
+        else if(index == _size-1) {pop(); return;}
+        if(index != 0){
+            let prevNode = at(index-1);
+            let nextNode = at(index+1);
+            prevNode.next = nextNode;
+        }else {
+            let nextNode = at(index+1);
+            _head = nextNode;
+        }
         _size--;
     };
 
@@ -73,6 +79,7 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
     
     const pop = () => {
         const value = Object.assign({}, _tail);
+        if(_size == 1) {_head = null; _tail = null; return;}
         let newTail = at(_size-2);
         newTail.next = null;
         _tail = newTail;
@@ -80,6 +87,6 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
         return value;
     };
 
-    return {remove, size, append, contains};
+    return {remove, size, append, contains, toString, find, at};
 
 };
