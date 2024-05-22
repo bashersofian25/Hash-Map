@@ -23,10 +23,22 @@ export const createHashTable = () => {
         }
         return hashCode;
     };
+    
+
+    const copyAllArrayElementsToDoubleSizedArray = () => {
+        let newArr = Array(_arr.length*2).fill(null);
+        let allEntries = entries();
+        _arr = newArr;
+        for(let i = 0; i<allEntries.length; i++){
+            set(allEntries[0], allEntries[1]);
+        }
+    };
 
     const _doubleArraySize = () => {
         // this method might cause problems with accessing elements later on!!
         // doubling the array size will change the hash for elements [from the future, this just happened]
+        // the only solution is create a new set of buckets and then copy the every thing to it
+        // need to change _doubleArraySize [as anticipated]
         let currentLength = _arr.length;
         for (let i = 0; i<currentLength; i++){
             _arr.push(null);
@@ -93,7 +105,16 @@ export const createHashTable = () => {
     };
     const keys = () => {/* will return an array with all keys in the hash table */};
     const values = () => {/* will return an array with all values in the hash table */};
-    const entries = () => {/* will return an array with all [key,value] pairs in the hash table */};
+    const entries = () => {
+        let array = [];
+        for (let i = 0; i<_arr.length; i++){
+            if(_arr[i] != null){
+                array = array.concat(_arr[i].toArr());
+                
+            }
+        }
+        return array;
+    };
 
     return {set, get, remove, length, clear, keys, values, entries, printHashTableArray};
 }

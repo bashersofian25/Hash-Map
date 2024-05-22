@@ -19,7 +19,7 @@ hashTable.set("food", "pizza");
 hashTable.set("hobby", "reading");
 hashTable.set("book", "1984");
 hashTable.set("movie", "Inception");
-hashTable.remove("password");
 
+hashTable.remove("password");
 
 hashTable.printHashTableArray();

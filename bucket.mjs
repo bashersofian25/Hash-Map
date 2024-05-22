@@ -15,6 +15,8 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
         _tail = newNode;
         _size++;
     };
+
+    
     const size = () => {return _size;};
     const toString = () => {// maybe I'll need it's logic I'll keep it in case
         if (_head == null) return null;
@@ -26,6 +28,22 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
         };
         finalString += "null";
         return finalString;
+    };
+
+    const toArr = () => {
+        if (_head == null) return null;
+        let pointedAtNode = _head;
+        let finalArray = []; 
+        
+        while(pointedAtNode != null){
+            let smallArray = []
+            smallArray.push(pointedAtNode.key);
+            smallArray.push(pointedAtNode.content);
+            finalArray.push(smallArray);
+            pointedAtNode = pointedAtNode.next;
+        };
+        
+        return finalArray;
     };
 
     const at = (index) => {
@@ -87,6 +105,6 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
         return value;
     };
 
-    return {remove, size, append, contains, toString, find, at};
+    return {remove, size, append, contains, toString, find, at, toArr};
 
 };
