@@ -1,8 +1,3 @@
-// we need to find elements by key, I'll modify the find function as well as the contains function [Done]
-// no need for insertAt function, so I'll remove it [Done]
-// no need for head and tail functions, I'll remove them [Done]
-// no need prepend function, I'll remove it [Done]
-
 import { createNode} from "./ListNode.mjs";
 export const createBucket = (firstNodeKey ,firstNodeValue) => {
     let firstNode = createNode(null, firstNodeKey ,firstNodeValue);
@@ -18,7 +13,7 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
 
     
     const size = () => {return _size;};
-    const toString = () => {// maybe I'll need it's logic I'll keep it in case
+    const toString = () => {
         if (_head == null) return null;
         let pointedAtNode = _head;
         let finalString = ""; 
@@ -54,7 +49,7 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
             i++;
             pointedAtNode = pointedAtNode.next;
         };
-        return undefined;
+        throw new Error("index out of bound");
     };
 
     const find = (key) => {
@@ -92,6 +87,7 @@ export const createBucket = (firstNodeKey ,firstNodeValue) => {
 
     const remove = (key) => {
         const index = find(key);
+        if(index == null) throw new Error("Not Found!")
         removeAt(index);
     };
     
